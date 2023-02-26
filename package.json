@@ -1,6 +1,6 @@
 {
   "name": "@someimportantcompany/github-actions-aws-s3-env",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Fetch an env-formatted file from AWS S3, and populate your Github Workflow with its contents.",
   "private": true,
   "scripts": {
