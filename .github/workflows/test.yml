@@ -14,7 +14,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
-          role-session-name: ${{ github.repository }}
+          role-session-name: someimportantcompany--github-actions-aws-s3-env
           aws-region: us-east-1
       - uses: actions/checkout@v2
       - run: env
@@ -30,7 +30,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
-          role-session-name: ${{ github.repository }}
+          role-session-name: someimportantcompany--github-actions-aws-s3-env
           aws-region: us-east-1
       - uses: actions/checkout@v2
       - run: env
@@ -47,7 +47,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
-          role-session-name: ${{ github.repository }}
+          role-session-name: someimportantcompany--github-actions-aws-s3-env
           aws-region: us-east-1
       - uses: actions/checkout@v2
       - run: env
@@ -64,7 +64,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
-          role-session-name: ${{ github.repository }}
+          role-session-name: someimportantcompany--github-actions-aws-s3-env
           aws-region: us-east-1
       - uses: actions/checkout@v2
       - run: env
