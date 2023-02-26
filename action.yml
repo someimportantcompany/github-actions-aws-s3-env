@@ -1,0 +1,18 @@
+name: AWS S3 Env
+description: Fetch an `.env`-formatted file from AWS S3, and populate your Github Workflow with its contents.
+branding:
+  icon: shield
+  color: yellow
+runs:
+  using: node16
+  main: ./index.dist.js
+inputs:
+  from:
+    description: S3 URL pointing to the env file you want to fetch.
+    required: true
+  prefix:
+    description: Set a prefix for all variable names in this env file.
+    required: false
+  masked:
+    description: Set to `true` to ensure values are masked as secrets.
+    required: false

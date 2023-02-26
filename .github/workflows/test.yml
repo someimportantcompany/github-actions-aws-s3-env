@@ -1,0 +1,74 @@
+name: Test
+on:
+  push:
+    paths:
+      - index.dist.js
+jobs:
+
+  minimum:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
+          role-session-name: ${{ github.repository }}
+          aws-region: us-east-1
+      - uses: actions/checkout@v2
+      - run: env
+      - name: someimportantcompany/github-actions-aws-s3-env@master
+        uses: ./
+        with:
+          from: s3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env
+      - run: env
+
+  with-prefix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
+          role-session-name: ${{ github.repository }}
+          aws-region: us-east-1
+      - uses: actions/checkout@v2
+      - run: env
+      - name: someimportantcompany/github-actions-aws-s3-env@master
+        uses: ./
+        with:
+          from: s3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env
+          prefix: FOO_
+      - run: env
+
+  with-masked:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
+          role-session-name: ${{ github.repository }}
+          aws-region: us-east-1
+      - uses: actions/checkout@v2
+      - run: env
+      - name: someimportantcompany/github-actions-aws-s3-env@master
+        uses: ./
+        with:
+          from: s3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env
+          masked: true
+      - run: env
+
+  with-prefix-and-masked:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
+          role-session-name: ${{ github.repository }}
+          aws-region: us-east-1
+      - uses: actions/checkout@v2
+      - run: env
+      - name: someimportantcompany/github-actions-aws-s3-env@master
+        uses: ./
+        with:
+          from: s3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env
+          prefix: FOO_
+          masked: true
+      - run: env
