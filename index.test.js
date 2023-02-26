@@ -1,7 +1,7 @@
 const assert = require('assert');
 const rewire = require('rewire');
 
-describe('@someimportantcompany/github-actions-slack-notify', () => {
+describe('@someimportantcompany/github-actions-aws-s3-env', () => {
   const action = rewire('./index');
 
   const mockCore = ({
