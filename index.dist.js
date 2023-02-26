@@ -43,6 +43,7 @@ For more information please go to https://github.com/aws/aws-sdk-js-v3#functiona
  * @author: jdrydn <james@jdrydn.com> (https://github.com/jdrydn)
  * @license: MIT
  * @link: https://github.com/someimportantcompany/github-actions-aws-s3-env
+ * @variation: 3c1b552680fe
  */
 /*! Bundled license information:
 
