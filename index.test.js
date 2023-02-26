@@ -12,7 +12,6 @@ describe('@someimportantcompany/github-actions-aws-s3-env', () => {
     stdout = [],
   } = {}) => ({
     getInput: key => inputs[key] || '',
-    getBooleanInput: key => inputs[key] === true,
     getOutput: key => outputs[key] || null,
     setOutput: (key, value) => outputs[key] = value,
     getFailed: () => outputs.failed || null,

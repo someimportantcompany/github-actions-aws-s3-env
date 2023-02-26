@@ -37,7 +37,7 @@ module.exports = async function run() {
   try {
     const from = core.getInput('from', { required: true });
     const prefix = core.getInput('prefix');
-    const masked = core.getBooleanInput('masked');
+    const masked = core.getInput('masked').toString() === 'true';
 
     const raw = await getEnvFile(from);
     const env = dotenv.parse(raw);
