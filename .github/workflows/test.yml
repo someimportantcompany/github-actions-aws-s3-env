@@ -11,7 +11,7 @@ jobs:
   minimum:
     runs-on: ubuntu-latest
     steps:
-      - uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
           role-session-name: someimportantcompany--github-actions-aws-s3-env
@@ -27,7 +27,7 @@ jobs:
   with-prefix:
     runs-on: ubuntu-latest
     steps:
-      - uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
           role-session-name: someimportantcompany--github-actions-aws-s3-env
@@ -44,7 +44,7 @@ jobs:
   with-masked:
     runs-on: ubuntu-latest
     steps:
-      - uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
           role-session-name: someimportantcompany--github-actions-aws-s3-env
@@ -61,7 +61,7 @@ jobs:
   with-prefix-and-masked:
     runs-on: ubuntu-latest
     steps:
-      - uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
           role-session-name: someimportantcompany--github-actions-aws-s3-env
