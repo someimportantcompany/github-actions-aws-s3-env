@@ -75,3 +75,25 @@ jobs:
           prefix: FOO_
           masked: true
       - run: env
+
+  with-output:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-cicd
+          role-session-name: someimportantcompany--github-actions-aws-s3-env
+          aws-region: us-east-1
+      - uses: actions/checkout@v3
+      - name: someimportantcompany/github-actions-aws-s3-env@master
+        id: env-vars
+        uses: ./
+        with:
+          from: s3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env
+          export-env: false
+          export-outputs: true
+      - uses: actions/github-script@v6
+        id: my-script
+        with:
+          script: |
+            console.log('${{ steps.env-vars.outputs.list }}');
