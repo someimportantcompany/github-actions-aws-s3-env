@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - index.dist.js
+  workflow_dispatch:
 permissions:
   id-token: write
   contents: read
@@ -96,4 +97,5 @@ jobs:
         id: my-script
         with:
           script: |
-            console.log('${{ steps.env-vars.outputs.list }}');
+            const output = `${{ steps.env-vars.outputs.list }}`;
+            console.log(output);
