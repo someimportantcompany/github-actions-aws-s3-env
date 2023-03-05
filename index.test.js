@@ -11,16 +11,16 @@ describe('@someimportantcompany/github-actions-aws-s3-env', () => {
     secrets = [],
     stdout = [],
   } = {}) => ({
-    getInput: key => inputs[key] || '',
-    getOutput: key => outputs[key] || null,
+    getInput: key => inputs[key] ?? '',
+    getOutput: key => outputs[key] ?? null,
     setOutput: (key, value) => outputs[key] = value,
-    getFailed: () => outputs.failed || null,
+    getFailed: () => outputs.failed ?? null,
     setFailed: value => outputs.failed = value,
     exportVariable: (key, value) => variables[key] = value,
     setSecret: value => secrets.push(value),
     debug: value => stdout.push(value),
     info: value => stdout.push(value),
-    getStdout: () => stdout || [],
+    getStdout: () => stdout ?? [],
   });
 
   it('should fetch an env file from S3', async () => {
@@ -122,6 +122,75 @@ describe('@someimportantcompany/github-actions-aws-s3-env', () => {
         { HELLO: 'world', HTTP_HOST: '0.0.0.0' },
         'export HELLO=world',
         'export HTTP_HOST=0.0.0.0',
+      ],
+    });
+  });
+
+  it('should fetch an env file from S3 & write to outputs instead of env', async () => {
+    const core = {
+      inputs: {
+        from: 's3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env',
+        'export-env': false,
+        'export-outputs': true,
+      },
+      outputs: {},
+      variables: {},
+      secrets: [],
+      stdout: [],
+    };
+
+    await action.__with__({ core: mockCore(core) })(() => action());
+
+    assert.deepStrictEqual(core, {
+      inputs: {
+        from: 's3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env',
+        'export-env': false,
+        'export-outputs': true,
+      },
+      outputs: {
+        'env.HELLO': 'world',
+        'env.HTTP_HOST': '0.0.0.0',
+        list: (a => a.join('\n'))([
+          'HELLO=world',
+          'HTTP_HOST=0.0.0.0',
+        ]),
+      },
+      variables: {},
+      secrets: [],
+      stdout: [
+        'Fetching env file from s3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env',
+        { HELLO: 'world', HTTP_HOST: '0.0.0.0' },
+      ],
+    });
+  });
+
+  it('should fetch an env file from S3 & write nothing', async () => {
+    const core = {
+      inputs: {
+        from: 's3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env',
+        'export-env': false,
+        'export-outputs': false,
+      },
+      outputs: {},
+      variables: {},
+      secrets: [],
+      stdout: [],
+    };
+
+    await action.__with__({ core: mockCore(core) })(() => action());
+
+    assert.deepStrictEqual(core, {
+      inputs: {
+        from: 's3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env',
+        'export-env': false,
+        'export-outputs': false,
+      },
+      outputs: {},
+      variables: {},
+      secrets: [],
+      stdout: [
+        'Fetching env file from s3://someimportantcompany.github.io/github-actions-aws-s3-env/example.env',
+        { HELLO: 'world', HTTP_HOST: '0.0.0.0' },
       ],
     });
   });

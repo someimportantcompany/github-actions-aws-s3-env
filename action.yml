@@ -16,3 +16,9 @@ inputs:
   masked:
     description: Set to `true` to ensure values are masked as secrets.
     required: false
+  export-env:
+    description: Export the env values into the current environment, defaults to `true`.
+    default: 'true'
+  export-outputs:
+    description: Export the env values as outputs, defaults to `false`.
+    default: 'false'

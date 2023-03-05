@@ -38,17 +38,31 @@ module.exports = async function run() {
     const from = core.getInput('from', { required: true });
     const prefix = core.getInput('prefix');
     const masked = core.getInput('masked').toString() === 'true';
+    const exportEnv = core.getInput('export-env').toString() !== 'false';
+    const exportOutputs = core.getInput('export-outputs').toString() === 'true';
 
     const raw = await getEnvFile(from);
     const env = dotenv.parse(raw);
     core.debug(env);
 
+    const listOutput = exportOutputs ? [] : undefined;
+
     for (const [key, value] of Object.entries(env)) {
-      if (masked) {
+      if ((exportEnv || exportOutputs) && masked) {
         core.setSecret(value);
       }
-      core.exportVariable(`${prefix}${key}`, value);
-      core.info(`export ${prefix}${key}=${value}`);
+      if (exportEnv) {
+        core.exportVariable(`${prefix}${key}`, value);
+        core.info(`export ${prefix}${key}=${value}`);
+      }
+      if (exportOutputs) {
+        core.setOutput(`env.${prefix}${key}`, value);
+        listOutput.push(`${prefix}${key}=${value}`);
+      }
+    }
+
+    if (exportOutputs) {
+      core.setOutput('list', listOutput.join('\n'));
     }
   } catch (err) {
     core.setFailed(err.message);
