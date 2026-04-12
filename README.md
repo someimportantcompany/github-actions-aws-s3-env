@@ -4,6 +4,9 @@
 [![CICD](https://github.com/someimportantcompany/github-actions-aws-s3-env/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/someimportantcompany/github-actions-aws-s3-env/actions?query=workflow%3ACI)
 [![Coverage](https://coveralls.io/repos/github/someimportantcompany/github-actions-aws-s3-env/badge.svg)](https://coveralls.io/github/someimportantcompany/github-actions-aws-s3-env)
 
+> [!WARNING]
+> **No longer maintained**
+
 Fetch an `.env`-formatted file from AWS S3, and populate your Github Workflow with its contents. You can optionally prefix all variable names, or enable variable masking (for secrets).
 
 ## Usage
